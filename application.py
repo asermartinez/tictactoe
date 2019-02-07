@@ -27,7 +27,7 @@ def index():
 
 @app.route("/play/<int:row>/<int:col>")
 def play(row, col):
-    """ Update the game board """"
+    """ Update the game board """
 
     game = session['board']
     game[row][col] = session['turn']
@@ -52,8 +52,13 @@ def undo():
     """ Undo the last move """
 
     game = session['board']
-    last = session['last_move']
+    moves = session['moves']
+
+
+    last = moves[-1]
     game[last[0]][last[1]] = None
+    if len(moves) > 1:
+        del moves[-1]
 
     return redirect(url_for('index'))
 
