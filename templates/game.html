@@ -53,7 +53,11 @@
             <form action="/" method="post" accept-charset="utf-8">
                 <button class="btn btn-info" type="submit">Resete game</button>
             </form>
-            <a href="/undo"><button class="btn btn-danger" type="submit">Undo move</button></a>   
+
+            {% if moves  %}
+                <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
+            {% endif %}
+
         </div>
    </body>
 </html>

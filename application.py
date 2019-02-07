@@ -23,7 +23,7 @@ def index():
         session['turn'] = 'X'
         session['moves'] = []
 
-    return render_template('game.html', game=session['board'], turn=session['turn'])
+    return render_template('game.html', game=session['board'], turn=session['turn'], moves=session['moves'])
 
 
 @app.route("/play/<int:row>/<int:col>")
