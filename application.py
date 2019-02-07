@@ -25,6 +25,7 @@ def index():
 
     return render_template('game.html', game=session['board'], turn=session['turn'])
 
+
 @app.route("/play/<int:row>/<int:col>")
 def play(row, col):
     """ Update the game board """
@@ -47,6 +48,7 @@ def play(row, col):
 
     return redirect(url_for('index'))
 
+
 @app.route('/undo')
 def undo():
     """ Undo the last move """
@@ -54,10 +56,9 @@ def undo():
     game = session['board']
     moves = session['moves']
 
-
-    last = moves[-1]
-    game[last[0]][last[1]] = None
-    if len(moves) > 1:
+    if len(moves) > 0:
+        last = moves[-1]
+        game[last[0]][last[1]] = None
         del moves[-1]
 
     return redirect(url_for('index'))

@@ -3,6 +3,10 @@
     <head>
         <title>Tic Tac Toe</title>
         <meta name="viewport" content='width=devide-width, initial-scale=1.0'>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <style>
             table {
                 border-collapse: collapse;
@@ -22,35 +26,34 @@
                 max-width: 500px;
                 padding: 50px;
             }
+            button {
+                margin: 5px;
+            }
 
         </style>
     </head>
     <body>
         <div id="bodyContainer" class="container">
-        <table>
-            {% for i in range(3) %}
-                <tr>
-                    {% for j in range(3) %}
-                        <td>
-                            {% if game[i][j] %}
-                                {{ game[i][j] }}
-                            {% else %}
-                                <a href="{{ url_for('play', row=i, col=j) }}">Play {{ turn }} here.</a>
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-        <form action="/" method="post" accept-charset="utf-8">
-            <button type="submit">Resete game</button>
-        </form>
-
-        <form action="/undo" method="get" accept-charset="utf-8">
-            <button type="submit">Undo move</button>
-        </form>
-
-
+            <table>
+                {% for i in range(3) %}
+                    <tr>
+                        {% for j in range(3) %}
+                            <td>
+                                {% if game[i][j] %}
+                                    {{ game[i][j] }}
+                                {% else %}
+                                    <a href="{{ url_for('play', row=i, col=j)
+                                    }}">Player {{ turn }} <br> Play here.</a>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <form action="/" method="post" accept-charset="utf-8">
+                <button class="btn btn-info" type="submit">Resete game</button>
+            </form>
+            <a href="/undo"><button class="btn btn-danger" type="submit">Undo move</button></a>   
         </div>
    </body>
 </html>
