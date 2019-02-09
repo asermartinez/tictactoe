@@ -10,7 +10,6 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """ Render game board with GET request. Reset game board for a POST request."""
@@ -29,6 +28,7 @@ def index():
     winner = None
 
     winner = check(game, winner)
+
     for row in session['board']:
         print(row)
     print(winner)
@@ -57,6 +57,7 @@ def play(row, col):
         print(item)
 
     print(game)
+    print('play turn', session['turn'])
     return redirect(url_for('index'))
 
 
@@ -70,16 +71,14 @@ def undo():
     if len(moves) > 0:
         last = moves[-1]
         game[last[0]][last[1]] = None
+        if session['turn'] == 'X':
+            session['turn'] = 'O'
+        else:
+            session['turn'] = 'X'
+
         del moves[-1]
 
     return redirect(url_for('index'))
-
-
-
-
-
-
-
 
 
 
