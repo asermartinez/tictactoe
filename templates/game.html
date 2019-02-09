@@ -26,17 +26,29 @@
                 max-width: 500px;
                 padding: 50px;
             }
+
             button {
                 margin: 5px;
+            }
+            
+            #buttons {
+                text-align: center;
+                margin: auto;
+                max-width: 500px;
+            }
+
+            #winner {
+                text-align: center;
+                margin: 0px;
             }
 
         </style>
     </head>
     <body>
         <div id="bodyContainer" class="container">
-            <div id="winner" class="container">
+            <div id="winner">
                 {% if winner != None %}
-                <h1>Winner is {{ winner }} !!!</h1>
+                <h1 class="alert alert-success">Winner is {{ winner }} !!!</h1>
                 {% endif %}
             </div>
 
@@ -53,7 +65,7 @@
                                
                                 {% else %}
                                 <a href="{{ url_for('play', row=i, col=j)
-                                    }}">Player {{ turn }} <br> Play here.</a>
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
 
                                 {% endif %}
                             </td>
@@ -61,6 +73,7 @@
                     </tr>
                 {% endfor %}
             </table>
+            <div id="buttons">
             <form action="/" method="post" accept-charset="utf-8">
                 <button class="btn btn-info" type="submit">Resete game</button>
             </form>
@@ -68,7 +81,7 @@
             {% if moves and winner == None %}
                 <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
             {% endif %}
-
+            </div>
         </div>
    </body>
 </html>
