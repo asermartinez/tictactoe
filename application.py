@@ -17,13 +17,45 @@ def index():
     if (request.method == 'POST'):
         session['board'] = [[None, None, None], [None, None, None], [None, None, None]]
         session['moves'] = []
+        session['turn'] = 'X'
 
     if 'board' not in session:
         session['board'] = [[None, None, None], [None, None, None], [None, None, None]]
         session['turn'] = 'X'
         session['moves'] = []
 
-    return render_template('game.html', game=session['board'], turn=session['turn'], moves=session['moves'])
+    game = session['board']
+    turn = session['turn']
+    winner = None
+    for col in range(3):
+        if game[0][col] == 'X' and game[1][col] == 'X' and game[2][col] == 'X':
+            winner = 'X'
+        if game[0][col] == 'O' and game[1][col] == 'O' and game[2][col] == 'O':
+            winner = 'O'
+
+    for row in range(3):
+        if game[row][0] == 'X' and game[row][1] == 'X' and game[row][2] == 'X':
+            winner = 'X'
+        if game[row][0] == 'O' and game[row][1] == 'O' and game[row][2] == 'O':
+            winner = 'O'
+
+    for row in range(3):
+        if game[0][0] == 'X' and game[1][1] == 'X' and game[2][2] == 'X':
+            winner = 'X'
+        if game[0][0] == 'O' and game[1][1] == 'O' and game[2][2] == 'O':
+            winner = 'O'
+
+    for row in range(3):
+        if game[2][0] == 'X' and game[1][1] == 'X' and game[0][2] == 'X':
+            winner = 'X'
+        if game[2][0] == 'O' and game[1][1] == 'O' and game[0][2] == 'O':
+            winner = 'O'
+
+
+    for row in session['board']:
+        print(row)
+    print(winner)
+    return render_template('game.html', game=session['board'], turn=session['turn'], moves=session['moves'], winner=winner)
 
 
 @app.route("/play/<int:row>/<int:col>")
@@ -44,8 +76,10 @@ def play(row, col):
 
     session['moves'].append(session['last_move'])
 
-    print(session['moves'])
+    for item in session['moves']:
+        print(item)
 
+    print(game)
     return redirect(url_for('index'))
 
 

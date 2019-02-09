@@ -34,6 +34,12 @@
     </head>
     <body>
         <div id="bodyContainer" class="container">
+            <div id="winner" class="container">
+                {% if winner != None %}
+                <h1>Winner is {{ winner }} !!!</h1>
+                {% endif %}
+            </div>
+
             <table>
                 {% for i in range(3) %}
                     <tr>
@@ -41,9 +47,14 @@
                             <td>
                                 {% if game[i][j] %}
                                     {{ game[i][j] }}
+
+                                {% elif game[i][j] == None and winner != None %}
+                                ---                                
+                               
                                 {% else %}
-                                    <a href="{{ url_for('play', row=i, col=j)
+                                <a href="{{ url_for('play', row=i, col=j)
                                     }}">Player {{ turn }} <br> Play here.</a>
+
                                 {% endif %}
                             </td>
                         {% endfor %}
@@ -54,7 +65,7 @@
                 <button class="btn btn-info" type="submit">Resete game</button>
             </form>
 
-            {% if moves  %}
+            {% if moves and winner == None %}
                 <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
             {% endif %}
 
