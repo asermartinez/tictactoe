@@ -23,6 +23,8 @@ def index():
         session['win'] = False
         session['winner'] = ''
         session['best_move'] = -1
+        session['moves_left'] = empty_moves(session['board'])
+        session['function_calls'] = 0
 
     if 'board' not in session:
         session['board'] = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -31,6 +33,9 @@ def index():
         session['win'] = False
         session['winner'] = ''
         session['best_move'] = -1
+        session['moves_left'] = empty_moves(session['board'])
+        session['function_calls'] = 0
+
 
     game = session['board']
     # winner = None
@@ -44,8 +49,14 @@ def index():
         if (counter % 3) == 0:
             print('\n')
 
+    print('function calls: ', session['function_calls'])
+    session['moves_left'] = empty_moves(game)
     print('Winning board: ', win)
-    return render_template('game.html', game=session['board'], turn=session['turn'], moves=session['moves'], win=session['win'], winner=session['winner'], best_move=session['best_move'])
+    return render_template('game.html', game=session['board'],
+                           turn=session['turn'], moves=session['moves'],
+                           win=session['win'], winner=session['winner'],
+                           best_move=session['best_move'],
+                           moves_left=session['moves_left'])
 
 
 @app.route("/play/<int:row>")
@@ -102,6 +113,7 @@ def ai():
     moves = []
 
     print('Moves left:', empty_moves(game))
+
 
     minimax(game, turn, moves)
 

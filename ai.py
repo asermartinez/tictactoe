@@ -1,4 +1,5 @@
 import math
+from application import session
 
 
 def empty_moves(game):
@@ -26,13 +27,13 @@ def win_board(game, turn):
         return True
     else:
         return False
-    # elif (len(empty_moves(game)) == 0):
-    #     return False
-    #
+
+
 def minimax(game, turn, moves):
     """TODO: Docstring for minimax.
     """
     moves_left = empty_moves(game)
+    session['function_calls'] += 1
 
     new_game = game
     if turn == 'X':
@@ -40,7 +41,7 @@ def minimax(game, turn, moves):
             value = -math.inf
             new_game[i] = turn
             if len(empty_moves(game)) == 0:
-                move = {i : 10}
+                move = {i : 0}
                 moves.append(move)
                 return 0
             if win_board(new_game, turn):
@@ -50,12 +51,14 @@ def minimax(game, turn, moves):
             value = max(value, minimax(new_game, 'O', moves))
             move = {i : value}
             moves.append(move)
+            new_game[i] = i
+
     elif turn == 'O':
         for i in moves_left:
             value = math.inf
             new_game[i] = turn
             if len(empty_moves(game)) == 0:
-                move = {i : -10}
+                move = {i : 0}
                 moves.append(move)
                 return 0
             if win_board(new_game, turn):
@@ -65,7 +68,9 @@ def minimax(game, turn, moves):
             value = min(value, minimax(new_game, 'X', moves))
             move = {i : value}
             moves.append(move)
+            new_game[i] = i
 
+    # print('function calls: ', session['function_calls'])
     return value
 
 # human_player = 'X'

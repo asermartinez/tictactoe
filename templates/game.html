@@ -134,7 +134,7 @@
                     <button class="btn btn-info" type="submit">Resete game</button>
                 </form>
 
-                {% if moves and win == False %}
+                {% if moves and win == False and (moves_left|length) > 0 %}
                     <a href="/ai"><button id="ai_btn" class="btn btn-danger"
                             type="submit">Let AI play</button></a>   
 
@@ -142,7 +142,7 @@
                     <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
                 {% endif %}
 
-                {% if best_move >= 0 %}
+                {% if best_move >= 0 and (moves_left|length) > 0 %}
                 <h3 class="alert alert-info">Best next move is {{ best_move
                     }} </h3>
                 {% endif %}
