@@ -44,40 +44,108 @@
     <body>
         <div id="bodyContainer" class="container">
             <div id="winner">
-                {% if winner != None %}
-                <h1 class="alert alert-success">Winner is {{ winner }} !</h1>
+                {% if win == True %}
+                <h2 class="alert alert-success">Winner is {{ winner }} !</h2>
                 {% endif %}
             </div>
 
             <table class="table-dark" >
-                {% for i in range(3) %}
-                    <tr>
-                        {% for j in range(3) %}
-                            <td>
-                                {% if game[i][j] %}
-                                    {{ game[i][j] }}
-
-                                {% elif game[i][j] == None and winner != None %}
-                                ---                                
-                               
+                <tr>
+                    <td id="1">
+                                {% if game[0] == 'X' or game[0] == 'O' %}
+                                    {{ game[0] }}
                                 {% else %}
-                                <a href="{{ url_for('play', row=i, col=j)
+                                <a href="{{ url_for('play', row=game[0])
                                     }}"><button class="btn btn-success">Player {{ turn }} </button></a>
-
                                 {% endif %}
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
+                    </td>
+                    <td id="2">
+                                {% if game[1] == 'X' or game[1] == 'O' %}
+                                    {{ game[1] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[1])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                    <td id="3">
+                                {% if game[2] == 'X' or game[2] == 'O' %}
+                                    {{ game[2] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[2])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td id="4">
+                                {% if game[3] == 'X' or game[3] == 'O' %}
+                                    {{ game[3] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[3])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                    <td id="5">
+                                {% if game[4] == 'X' or game[4] == 'O' %}
+                                    {{ game[4] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[4])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                    <td id="6">
+                                {% if game[5] == 'X' or game[5] == 'O' %}
+                                    {{ game[5] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[5])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td id="7">
+                                {% if game[6] == 'X' or game[6] == 'O' %}
+                                    {{ game[6] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[6])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                    <td id="8">
+                                {% if game[7] == 'X' or game[7] == 'O' %}
+                                    {{ game[7] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[7])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                    <td id="9">
+                                {% if game[8] == 'X' or game[8] == 'O' %}
+                                    {{ game[8] }}
+                                {% else %}
+                                <a href="{{ url_for('play', row=game[8])
+                                    }}"><button class="btn btn-success">Player {{ turn }} </button></a>
+                                {% endif %}
+                    </td>
+                </tr>
             </table>
             <div id="buttons">
-            <form action="/" method="post" accept-charset="utf-8">
-                <button class="btn btn-info" type="submit">Resete game</button>
-            </form>
+                <form action="/" method="post" accept-charset="utf-8">
+                    <button class="btn btn-info" type="submit">Resete game</button>
+                </form>
 
-            {% if moves and winner == None %}
-                <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
-            {% endif %}
+                {% if moves and win == False %}
+                    <a href="/ai"><button id="ai_btn" class="btn btn-danger"
+                            type="submit">Let AI play</button></a>   
+
+                    <br>
+                    <a href="/undo"><button id="undo" class="btn btn-danger" type="submit">Undo move</button></a>   
+                {% endif %}
+
+                {% if best_move >= 0 %}
+                <h3 class="alert alert-info">Best next move is {{ best_move
+                    }} </h3>
+                {% endif %}
             </div>
         </div>
    </body>

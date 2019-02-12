@@ -1,0 +1,14 @@
+def minimax(game, turn):
+    if game is over:
+        return score for game
+    moves = available moves for game
+    if turn is X:
+        value = -infinity
+        for move in moves:
+            value = max(value, minimax(game with move made, O)
+    else:
+        value = infinity
+        for move in moves:
+            value = min(value, minimax(game with move made, X)
+
+    return value
